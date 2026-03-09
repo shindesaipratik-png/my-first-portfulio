@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajanta Caves – UNESCO World Heritage Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --deep: #1a0a00;
+      --terra: #8b3a0f;
+      --sand: #f5e6c8;
+      --stone: #3e2a1a;
+      --light: #fff8ee;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--deep); color: var(--sand); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(10,4,0,.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.25);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+    }
+    .nav-logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.1rem; padding: 1rem 0; letter-spacing: .1em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #d4b896; text-decoration: none; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://th.bing.com/th/id/OIP.XJuV3yJt3JLL6cWmLGftTwHaE8?w=291&h=194&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3') center/cover no-repeat;
+      filter: brightness(.45) saturate(1.3);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,4,0,.2) 0%, rgba(10,4,0,.7) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 2rem; max-width: 860px; }
+    .hero-badge {
+      display: inline-block; border: 1px solid var(--gold); color: var(--gold);
+      font-size: .7rem; letter-spacing: .25em; text-transform: uppercase;
+      padding: .4rem 1.2rem; border-radius: 2rem; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif; font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700; line-height: 1.1; color: #fff;
+      text-shadow: 0 4px 24px rgba(0,0,0,.6);
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      margin: 1.5rem auto; font-size: 1.1rem; font-weight: 300;
+      color: #e8d5b5; max-width: 580px; line-height: 1.8;
+    }
+    .hero-cta {
+      display: inline-block; margin-top: 1rem;
+      background: var(--gold); color: var(--deep);
+      padding: .9rem 2.6rem; border-radius: 3rem;
+      text-decoration: none; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; font-size: .85rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,.4);
+    }
+    .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(201,168,76,.55); }
+    .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .scroll-hint span { display: block; width: 24px; height: 24px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); margin: -10px auto; animation: scrollDown 1.5s infinite; }
+    .scroll-hint span:nth-child(2) { animation-delay: .2s; }
+    @keyframes scrollDown { 0%,100%{opacity:0; transform:rotate(45deg) translate(-4px,-4px);} 50%{opacity:1; transform:rotate(45deg) translate(4px,4px);} }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 5%; }
+    .section-label { font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+    .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; margin-bottom: 1.2rem; }
+    .section-title span { color: var(--gold); }
+    .divider { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 3rem; }
+    .divider.left { margin: 0 0 2rem; }
+
+    /* ── STATS STRIP ── */
+    .stats {
+      background: linear-gradient(135deg, #1e0d04 0%, #2c1507 100%);
+      border-top: 1px solid rgba(201,168,76,.2); border-bottom: 1px solid rgba(201,168,76,.2);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      text-align: center; padding: 3rem 5%;
+    }
+    .stat-item { padding: 1.5rem; }
+    .stat-num { font-family: 'Cinzel', serif; font-size: 2.8rem; color: var(--gold); font-weight: 700; }
+    .stat-label { font-size: .8rem; letter-spacing: .15em; text-transform: uppercase; color: #b89870; margin-top: .4rem; }
+
+    /* ── ABOUT ── */
+    .about { background: #120600; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .about-text p { color: #c4a882; line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img { width: 100%; border-radius: 4px; display: block; }
+    .about-img-caption {
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(10,4,0,.9));
+      color: #b89468; font-size: .75rem; text-align: center; padding: 1.5rem .5rem .6rem;
+      letter-spacing: .1em;
+    }
+    .highlight-box {
+      border-left: 3px solid var(--gold); padding: 1rem 1.5rem;
+      background: rgba(201,168,76,.07); border-radius: 0 4px 4px 0;
+      font-style: italic; color: #d4b87e; margin: 1.5rem 0;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--deep); text-align: center; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 4/3; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, filter .5s; filter: brightness(.85); }
+    .gallery-item:hover img { transform: scale(1.07); filter: brightness(1); }
+    .gallery-item .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.75));
+      color: #e8d0a8; font-size: .8rem; padding: 1.5rem .8rem .6rem;
+      transform: translateY(100%); transition: transform .4s;
+      letter-spacing: .08em;
+    }
+    .gallery-item:hover .caption { transform: translateY(0); }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }
+
+    /* ── CAVES INFO ── */
+    .caves { background: #0e0400; }
+    .caves-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .cave-card {
+      background: linear-gradient(135deg, #1e0d04, #2a1506);
+      border: 1px solid rgba(201,168,76,.18); border-radius: 6px;
+      padding: 2rem; transition: border-color .3s, transform .3s;
+    }
+    .cave-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .cave-num { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); opacity: .6; }
+    .cave-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fff; margin: .4rem 0 .8rem; }
+    .cave-type { font-size: .7rem; text-transform: uppercase; letter-spacing: .2em; color: var(--terra); margin-bottom: .8rem; }
+    .cave-card p { color: #a8876a; font-size: .9rem; line-height: 1.7; }
+
+    /* ── VISIT ── */
+    .visit { background: #120600; text-align: center; }
+    .visit-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+    .visit-card {
+      background: rgba(201,168,76,.07); border: 1px solid rgba(201,168,76,.2);
+      border-radius: 6px; padding: 2rem 1.5rem;
+    }
+    .visit-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+    .visit-card h4 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: .6rem; font-size: .95rem; }
+    .visit-card p { color: #a88868; font-size: .88rem; line-height: 1.7; }
+
+    /* ── MAP BANNER ── */
+    .map-banner {
+      background: linear-gradient(135deg, #1c0a03 0%, #2e1508 100%);
+      border-top: 1px solid rgba(201,168,76,.15);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 1.5rem; padding: 3rem 8%;
+    }
+    .map-banner h3 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: #fff; }
+    .map-banner p { color: #b89468; margin-top: .4rem; }
+    .map-btn {
+      background: transparent; border: 2px solid var(--gold); color: var(--gold);
+      padding: .8rem 2rem; border-radius: 3rem; text-decoration: none;
+      font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+      transition: background .3s, color .3s;
+    }
+    .map-btn:hover { background: var(--gold); color: var(--deep); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080200; border-top: 1px solid rgba(201,168,76,.15);
+      text-align: center; padding: 3rem 5%;
+      color: #6b4e34; font-size: .8rem; line-height: 2;
+    }
+    footer .footer-logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem; margin-bottom: .5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.tall { grid-row: span 1; aspect-ratio: 4/3; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🏛 Ajanta Caves</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#caves">The Caves</a></li>
+    <li><a href="#visit">Plan Your Visit</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🌏 UNESCO World Heritage Site · 1983</div>
+    <h1>The <span>Ajanta</span> Caves</h1>
+    <p class="hero-sub">Rock-cut Buddhist cave monuments carved into the volcanic basalt cliffs of Maharashtra — a 2,000-year-old testament to human devotion and artistic genius.</p>
+    <a href="#about" class="hero-cta">Discover the Legacy</a>
+  </div>
+  <div class="scroll-hint">
+    <span></span><span></span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">Rock-Cut Caves</div></div>
+  <div class="stat-item"><div class="stat-num">2nd</div><div class="stat-label">Century BCE</div></div>
+  <div class="stat-item"><div class="stat-num">1983</div><div class="stat-label">UNESCO Listed</div></div>
+  <div class="stat-item"><div class="stat-num">3.5 km</div><div class="stat-label">Gorge Length</div></div>
+  <div class="stat-item"><div class="stat-num">600+</div><div class="stat-label">Years of Art</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">Heritage & History</div>
+      <h2 class="section-title">A Window Into <span>Ancient India</span></h2>
+      <div class="divider left"></div>
+      <p>The Ajanta Caves are 30 rock-cut Buddhist cave monuments dating from the 2nd century BCE to approximately 480 CE, located in the Aurangabad district of Maharashtra, India. Carved into the sheer face of a horseshoe-shaped basalt gorge above the Waghora River, these caves served as monsoon retreats and places of worship for Buddhist monks.</p>
+      <div class="highlight-box">"The finest surviving examples of ancient Indian art — particularly painting — which is of the greatest archaeological, religious and artistic significance." — UNESCO</div>
+      <p>Rediscovered in 1819 by British officer John Smith during a tiger hunt, the caves had been hidden in jungle for nearly a millennium. They contain some of the best-preserved examples of ancient fresco painting and intricate stone sculpture in the world, depicting the life of the Buddha and various Jataka tales.</p>
+      <p>The site encompasses two distinct phases of construction — the Hinayana (Theravada) phase and the later Mahayana phase — representing a profound evolution in Buddhist thought and artistic expression over six centuries.</p>
+    </div>
+    <div class="about-img-wrap">
+      <img src="https://th.bing.com/th/id/OIP._a1pkuNI8KJLZyV9wz1cyQHaLG?w=186&h=279&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Padmapani painting in Cave 1, Ajanta" loading="lazy" />
+      <div class="about-img-caption">Bodhisattva Padmapani — Cave 1 · One of India's most iconic paintings</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="section-label">Visual Journey</div>
+  <h2 class="section-title">Through the <span>Lens</span></h2>
+  <div class="divider"></div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item tall">
+      <img src="https://th.bing.com/th/id/OIP.hOXRiR62h5cSE9i3YGD4lwHaFj?w=241&h=181&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3x" loading="lazy"/>
+      <div class="caption">Façade of Cave 1 — Mahayana Vihara</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://th.bing.com/th/id/OIP.FdPcr43rX_hGTQaPwZjfqAHaFb?w=254&h=187&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Painted ceiling" loading="lazy"/>
+      <div class="caption">Ornate painted ceiling — Cave 2</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://th.bing.com/th/id/OIP.Z1rYhfjvsDuN0_bgG5NliAHaFc?w=264&h=194&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Cave 19 Chaitya" loading="lazy"/>
+      <div class="caption">Cave 19 — Mahayana Chaitya-griha</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://th.bing.com/th/id/OIP.5mOwBOTNytWlekxauWlHIQHaUB?w=115&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Panoramic view from river" loading="lazy"/>
+      <div class="caption">Panoramic view from the Waghora River gorge</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://th.bing.com/th/id/OIP.SxL8FLpYIWwNlZTg1XkrFwHaFj?w=252&h=189&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Reclining Buddha" loading="lazy"/>
+      <div class="caption">Reclining Buddha (Mahaparinirvana) — Cave 26</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CAVES -->
+<section class="caves" id="caves">
+  <div style="text-align:center">
+    <div class="section-label">Architecture & Art</div>
+    <h2 class="section-title">Notable <span>Caves</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="caves-grid">
+    <div class="cave-card">
+      <div class="cave-num">01</div>
+      <div class="cave-name">Cave 1</div>
+      <div class="cave-type">Mahayana Vihara · 5th Century CE</div>
+      <p>Contains the famous Padmapani and Vajrapani Bodhisattva paintings — considered masterpieces of ancient Indian art, and among the finest murals ever created in the world.</p>
+    </div>
+    <div class="cave-card">
+      <div class="cave-num">02</div>
+      <div class="cave-name">Cave 2</div>
+      <div class="cave-type">Mahayana Vihara · 5th Century CE</div>
+      <p>Remarkable for its ornate ceiling paintings featuring floral, geometric and figurative motifs. Shrines contain images of the Thousand Buddhas carved in intricate detail.</p>
+    </div>
+    <div class="cave-card">
+      <div class="cave-num">10</div>
+      <div class="cave-name">Cave 10</div>
+      <div class="cave-type">Hinayana Chaitya · 2nd Century BCE</div>
+      <p>The oldest cave at Ajanta. A prayer hall featuring a large stupa at its apse, with traces of the earliest paintings — some of which bear inscriptions identifying donors.</p>
+    </div>
+    <div class="cave-card">
+      <div class="cave-num">16</div>
+      <div class="cave-name">Cave 16</div>
+      <div class="cave-type">Mahayana Vihara · 5th Century CE</div>
+      <p>Features the poignant "Dying Princess" painting — depicting Nanda's wife Sundari fainting upon learning of her husband's intent to become a monk — a celebrated Jataka illustration.</p>
+    </div>
+    <div class="cave-card">
+      <div class="cave-num">17</div>
+      <div class="cave-name">Cave 17</div>
+      <div class="cave-type">Mahayana Vihara · 5th Century CE</div>
+      <p>Known as the "cave of the finest paintings" — it contains the greatest variety and number of Jataka stories depicted through vivid, well-preserved murals across its walls and ceiling.</p>
+    </div>
+    <div class="cave-card">
+      <div class="cave-num">26</div>
+      <div class="cave-name">Cave 26</div>
+      <div class="cave-type">Mahayana Chaitya · 5th–6th Century CE</div>
+      <p>Houses a magnificent 7-metre-long reclining Buddha in the Mahaparinirvana pose, surrounded by grieving disciples — one of the most dramatic sculptures in the entire complex.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit">
+  <div class="section-label">Plan Your Journey</div>
+  <h2 class="section-title">Visitor <span>Information</span></h2>
+  <div class="divider"></div>
+  <div class="visit-cards">
+    <div class="visit-card">
+      <div class="visit-icon">🕐</div>
+      <h4>Opening Hours</h4>
+      <p>Tuesday – Sunday<br/>9:00 AM – 5:30 PM<br/><em style="color:#6b4e34">Closed on Mondays</em></p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-icon">🎟️</div>
+      <h4>Entry Fee</h4>
+      <p>Indians: ₹40<br/>Foreign Nationals: ₹600<br/>Children under 15: Free</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-icon">📍</div>
+      <h4>Location</h4>
+      <p>Ajanta, Aurangabad District<br/>Maharashtra, India 431117<br/>Near Chalisgaon & Jalgaon</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-icon">🌦️</div>
+      <h4>Best Time to Visit</h4>
+      <p>November to March<br/>Cool, dry weather<br/>Avoid peak summer heat</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-icon">🚌</div>
+      <h4>Getting There</h4>
+      <p>100 km from Aurangabad<br/>Nearest airport: Aurangabad<br/>Buses & taxis available</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-icon">📸</div>
+      <h4>Photography</h4>
+      <p>Permitted outside caves<br/>No flash photography inside<br/>Professional permits required</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAP BANNER -->
+<div class="map-banner">
+  <div>
+    <h3>Find Ajanta Caves</h3>
+    <p>📍 Ajanta, Maharashtra — 20°33′N 75°42′E</p>
+  </div>
+  <a href="https://www.google.com/maps/place/Ajanta+Caves" target="_blank" class="map-btn">Open in Maps</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🏛 Ajanta Caves</div>
+  <p>UNESCO World Heritage Site — Inscribed 1983 | India</p>
+  <p style="margin-top:.5rem">Archaeological Survey of India &nbsp;·&nbsp; Ministry of Culture, Government of India</p>
+  <p style="margin-top:1rem; font-size:.72rem; opacity:.5">Website created for heritage education purposes. All historical information sourced from ASI and UNESCO records.</p>
+</footer>
+
+</body>
+</html>
